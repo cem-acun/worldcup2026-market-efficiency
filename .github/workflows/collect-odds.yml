@@ -1,0 +1,29 @@
+name: Collect odds
+
+on:
+  schedule:
+    - cron: "0 */2 * * *"       # every 2 hours (UTC), 24/7
+  workflow_dispatch:             # allow manual runs for testing
+
+permissions:
+  contents: write                # needed to commit the data back to the repo
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - run: python collect_odds.py
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+      - name: Commit data
+        run: |
+          git config user.name "odds-bot"
+          git config user.email "actions@github.com"
+          git add data/odds_log.csv
+          git diff --staged --quiet || git commit -m "odds $(date -u +%FT%TZ)"
+          git push
