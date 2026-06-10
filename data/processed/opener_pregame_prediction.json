@@ -1,0 +1,44 @@
+{
+  "match": "Mexico vs South Africa",
+  "tournament": "2026 FIFA World Cup \u2014 Opening Match, Group A",
+  "kickoff_local": "2026-06-11 20:00 Mexico City (UTC-6)",
+  "kickoff_utc": "2026-06-12 02:00 UTC",
+  "prediction_made_at_utc": "2026-06-10T19:26:54.596049+00:00",
+  "venue": "Estadio Azteca, Mexico City",
+  "home_team": "Mexico",
+  "away_team": "South Africa",
+  "host_advantage_applied": true,
+  "model": {
+    "name": "Elo (custom, World Football Elo Ratings convention)",
+    "mexico_elo": 1933,
+    "south_africa_elo": 1654,
+    "home_advantage_points": 65,
+    "probabilities": {
+      "Mexico": 0.7743,
+      "Draw": 0.1186,
+      "South Africa": 0.1071
+    }
+  },
+  "market": {
+    "source": "the-odds-api.com",
+    "snapshot_utc": "2026-06-10 19:00:45.047545+00:00",
+    "bookmakers_count": 23,
+    "average_decimal_odds": {
+      "Mexico": 1.41,
+      "Draw": 4.497,
+      "South Africa": 8.83
+    },
+    "vig_overround_pct": 4.51,
+    "implied_probabilities_fair": {
+      "Mexico": 0.6788,
+      "Draw": 0.2128,
+      "South Africa": 0.1084
+    }
+  },
+  "edge_model_minus_market_pp": {
+    "Mexico": 9.54,
+    "Draw": -9.42,
+    "South Africa": -0.12
+  },
+  "notes": "Model is most aggressive on the favourite (Mexico) and dismissive of the draw due to the large Elo gap. Market prices the draw substantially higher, likely reflecting opening-match tension and defensive strategy patterns that Elo, as a strength-comparison model, does not capture."
+}
