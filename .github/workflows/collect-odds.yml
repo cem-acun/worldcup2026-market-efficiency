@@ -8,7 +8,12 @@ on:
     # at the top of every hour. Offsetting to an odd minute (a prime,
     # away from :00/:15/:30/:45) significantly improves reliability.
     - cron: "13 */2 * * *"
-  workflow_dispatch:   # allow manual runs for testing      
+  repository_dispatch:
+    # Backup trigger via external cron service (cron-job.org).
+    # GitHub's own cron silently drops runs during high load;
+    # this gives us a reliable second path.
+    types: [external-trigger]
+  workflow_dispatch:   # allow manual runs for testing 
 
 permissions:
   contents: write                # needed to commit the data back to the repo
