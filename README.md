@@ -143,6 +143,7 @@ All generated content was independently reviewed, understood, and adapted by the
 
 **Cem Acun**
 B.Eng. Applied Data Science (in progress), Jade University of Applied Sciences, Germany
+
 [github.com/cem-acun](https://github.com/cem-acun)
 
 ## License
