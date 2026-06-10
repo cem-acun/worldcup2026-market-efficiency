@@ -2,12 +2,13 @@ name: Collect odds
 
 on:
   schedule:
-    # Every 2 hours, at :13 past the hour (UTC).
-    # Why :13 and not :00 — GitHub's own docs warn that scheduled
-    # workflows are delayed or dropped during high load, which peaks
-    # at the top of every hour. Offsetting to an odd minute (a prime,
-    # away from :00/:15/:30/:45) significantly improves reliability.
-    - cron: "13 */2 * * *"
+    # Backup schedule: every 3 hours at :13 past the hour (UTC).
+    # The primary trigger is cron-job.org via repository_dispatch
+    # (every 2 hours at :43). This GitHub-native cron exists as a
+    # second path because GitHub silently drops scheduled runs
+    # during top-of-hour load spikes. :13 + :43 keeps the two
+    # triggers ~30 min offset so they don't pile up.
+    - cron: "13 */3 * * *"
   repository_dispatch:
     # Backup trigger via external cron service (cron-job.org).
     # GitHub's own cron silently drops runs during high load;
