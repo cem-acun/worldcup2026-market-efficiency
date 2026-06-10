@@ -2,8 +2,13 @@ name: Collect odds
 
 on:
   schedule:
-    - cron: "0 */2 * * *"       # every 2 hours (UTC), 24/7
-  workflow_dispatch:             # allow manual runs for testing
+    # Every 2 hours, at :13 past the hour (UTC).
+    # Why :13 and not :00 — GitHub's own docs warn that scheduled
+    # workflows are delayed or dropped during high load, which peaks
+    # at the top of every hour. Offsetting to an odd minute (a prime,
+    # away from :00/:15/:30/:45) significantly improves reliability.
+    - cron: "13 */2 * * *"
+  workflow_dispatch:   # allow manual runs for testing      
 
 permissions:
   contents: write                # needed to commit the data back to the repo
