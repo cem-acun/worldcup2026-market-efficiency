@@ -1,0 +1,13 @@
+{
+  "n_matches": 3572,
+  "date_range": [
+    "2023-01-02",
+    "2026-06-08"
+  ],
+  "accuracy": 0.6047,
+  "baseline_accuracy_always_home": 0.4723,
+  "brier_score": 0.5155,
+  "brier_uniform_baseline": 0.6667,
+  "log_loss": 0.8824,
+  "log_loss_uniform_baseline": 1.0986
+}
