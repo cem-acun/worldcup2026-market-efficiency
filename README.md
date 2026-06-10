@@ -23,6 +23,7 @@ Calibration is near-perfect on home wins, with a known and documented weakness o
 ![Group advancement probabilities](data/processed/group_advancement.png)
 
 The model's clearest convictions: Spain (98.7%) and Argentina (97.0%) almost certainly advance from their groups. Group D is the most chaotic, with no team above 80%; even host USA sits at 57.1%. The most striking model–market disagreements are likely in Group E (Ecuador 92.7% vs Germany 92.2%, roughly tied) and Group F (Japan 90.3% vs Netherlands 89.8%): both groups where the bookmakers will almost certainly favour the European side.
+
 **Full-tournament Monte Carlo forecast** (10,000 simulated tournaments with the official 2026 bracket):
 
 ![Championship probabilities](data/processed/championship_probabilities.png)
@@ -88,7 +89,6 @@ worldcup2026-market-efficiency/
 
 ## What's next
 
-- **Knockout-bracket simulation** for full champion probabilities (Phase 2B).
 - **Daily fixture results pull** from football-data.org once the group stage begins.
 - **Calibration vs. market**: once about 15 matches have been played, compare both sides' Brier and log loss on the same fixtures.
 - **Streamlit dashboard**: live "model vs. market" view for the knockout rounds.
