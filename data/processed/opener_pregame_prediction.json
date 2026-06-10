@@ -1,8 +1,8 @@
 {
   "match": "Mexico vs South Africa",
   "tournament": "2026 FIFA World Cup \u2014 Opening Match, Group A",
-  "kickoff_local": "2026-06-11 20:00 Mexico City (UTC-6)",
-  "kickoff_utc": "2026-06-12 02:00 UTC",
+  "kickoff_local": "2026-06-11 13:00 Mexico City (CST, UTC-6)",
+  "kickoff_utc": "2026-06-11 19:00 UTC",
   "prediction_made_at_utc": "2026-06-10T19:26:54.596049+00:00",
   "venue": "Estadio Azteca, Mexico City",
   "home_team": "Mexico",
@@ -40,5 +40,6 @@
     "Draw": -9.42,
     "South Africa": -0.12
   },
-  "notes": "Model is most aggressive on the favourite (Mexico) and dismissive of the draw due to the large Elo gap. Market prices the draw substantially higher, likely reflecting opening-match tension and defensive strategy patterns that Elo, as a strength-comparison model, does not capture."
+  "notes": "Model is most aggressive on the favourite (Mexico) and dismissive of the draw due to the large Elo gap. Market prices the draw substantially higher, likely reflecting opening-match tension and defensive strategy patterns that Elo, as a strength-comparison model, does not capture.",
+  "kickoff_berlin": "2026-06-11 21:00 Berlin (CEST, UTC+2)"
 }
