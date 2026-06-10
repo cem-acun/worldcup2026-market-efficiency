@@ -28,9 +28,9 @@ The model's clearest convictions: Spain (98.7%) and Argentina (97.0%) almost cer
 
 ```
 +----------------------------------------------------------+
-|  Two-way scheduler  ->  the-odds-api.com                 |
-|  cron-job.org every 2h  +  GitHub Actions every 3h       |
-|  ->  appends to data/odds_log.csv                        |
+|  External scheduler (cron-job.org)                       |
+|  hourly, 20 of 24 hours -> the-odds-api.com              |
+|  -> repository_dispatch -> appends to data/odds_log.csv  |
 +----------------------------------------------------------+
             |
             v
@@ -76,7 +76,7 @@ worldcup2026-market-efficiency/
 - **No look-ahead leakage.** Each match in the backtest is scored against the Elo rating *as it stood the day before the match*, not the post-tournament rating. This is why the processed matches file carries `home_elo_before` / `away_elo_before` columns.
 - **K-factor weights tournaments by importance.** A friendly moves Elo by about one third as much as a World Cup match, following the World Football Elo Ratings convention.
 - **Home advantage is venue-aware**, applied only when the match is not at a neutral venue (which is most of the World Cup).
-- **Reliable scheduling via a two-trigger design.** GitHub Actions scheduled workflows are silently dropped during top-of-hour load spikes (per GitHub's own docs). The first mitigation was offsetting the cron to `:13` past the hour, which materially improved hit rate. The robust fix was a second, independent trigger: an external scheduler (cron-job.org) that calls GitHub's `repository_dispatch` API every 2 hours at `:43`. The native GitHub cron is kept as a 3-hourly backup at `:13`. Combined, the two triggers cover the same 24-hour window with about 30-minute spacing, well within the free-tier API budget (about 20 calls per day x 21 days in June, approximately 420 of 500 credits).
+- **Reliable scheduling via an external trigger.** GitHub Actions scheduled workflows are silently dropped during top-of-hour load spikes — per GitHub's own documentation, and confirmed empirically: in 24 hours of observation the native cron fired only 2 of an expected 12 times, even after offsetting the schedule to :13 past the hour. The robust fix was to remove the native cron entirely and use an external dedicated scheduler (cron-job.org) that calls GitHub's repository_dispatch API hourly, on the top of the hour. The schedule is concentrated on the 20-hour window where North American kick-off times and European-evening trading activity occur (UTC 00–07 and 12–23, skipping the dead window of UTC 08–11). This stays well within the free-tier API budget (20 calls per day × 21 days in June ≈ 420 of 500 credits) while giving 6–10 odds snapshots per match in the critical six-hour window before kick-off.
 - **Goal-difference multiplier in Elo updates.** Following the World Football Elo Ratings formula: 1-goal margins move ratings normally, 2-goal margins move them 1.5x, larger margins scale with `(11 + |gd|) / 8`. This makes decisive wins worth more without letting blowouts dominate.
 
 ## What's next
