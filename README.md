@@ -23,6 +23,13 @@ Calibration is near-perfect on home wins, with a known and documented weakness o
 ![Group advancement probabilities](data/processed/group_advancement.png)
 
 The model's clearest convictions: Spain (98.7%) and Argentina (97.0%) almost certainly advance from their groups. Group D is the most chaotic, with no team above 80%; even host USA sits at 57.1%. The most striking model–market disagreements are likely in Group E (Ecuador 92.7% vs Germany 92.2%, roughly tied) and Group F (Japan 90.3% vs Netherlands 89.8%): both groups where the bookmakers will almost certainly favour the European side.
+**Full-tournament Monte Carlo forecast** (10,000 simulated tournaments with the official 2026 bracket):
+
+![Championship probabilities](data/processed/championship_probabilities.png)
+
+The model has two clear title favourites: **Spain (24.4%)** and **Argentina (20.5%)**, who together account for nearly half of all simulated championships. The chasing pack — France (9.9%), England (6.5%), Colombia (4.8%), Brazil (4.7%) — sits well behind. Brazil's championship probability looks low by reputation but reflects what current Elo data actually says: their group-stage probability of advancing (92%) is strong, but they are placed in the same half of the bracket as Spain. The bracket effect matters: Spain's path to the semi-final passes through softer opposition than Argentina's, which is why despite a smaller Elo gap, Spain leads in title probability.
+
+The simulation uses FIFA's official Round of 32 pairings and the 495 third-place placement combinations defined in Annex C of the tournament regulations.
 
 ## How it works
 
