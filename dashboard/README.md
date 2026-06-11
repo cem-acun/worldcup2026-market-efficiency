@@ -24,6 +24,22 @@ set in `config.js`:
 window.DATA_BASE = "../";
 ```
 
+## Deploy to GitHub Pages (fully automated)
+
+The repo includes `.github/workflows/deploy-dashboard.yml`, which publishes the
+`dashboard/` folder to GitHub Pages on every push to `main`.
+
+One-time setup:
+1. Merge this to `main`.
+2. Repo **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+3. The "Deploy dashboard" workflow runs and the site goes live at
+   `https://<user>.github.io/<repo>/`.
+
+After that it's hands-off: the dashboard reads live odds from GitHub raw
+(default `config.js`) and **auto-refreshes its data every 5 minutes** in the
+browser, so an open tab stays current as the pipeline logs new snapshots — no
+redeploy or reload needed.
+
 ## Deploy to Cloudflare Pages
 
 Two supported layouts — pick one.

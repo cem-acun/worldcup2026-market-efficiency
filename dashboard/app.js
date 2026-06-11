@@ -248,7 +248,8 @@ function buildMetrics(m) {
 // ---------------------------------------------------------------------------
 // Boot
 // ---------------------------------------------------------------------------
-(async function main() {
+let champBuilt = false; // championship/group/metrics are static — build once
+async function main() {
   document.getElementById("data-source").textContent = "Source: " + BASE;
   const results = await Promise.allSettled([
     fetchText("data/odds_log.csv"),
@@ -264,9 +265,12 @@ function buildMetrics(m) {
     if (odds.status === "fulfilled" && elo.status === "fulfilled") {
       latestTs = buildLive(parseCSV(odds.value), elo.value);
     }
-    if (champ.status === "fulfilled") buildChampionship(parseCSV(champ.value));
-    if (groups.status === "fulfilled") buildGroups(parseCSV(groups.value));
-    if (metrics.status === "fulfilled") buildMetrics(metrics.value);
+    if (!champBuilt) {
+      if (champ.status === "fulfilled") buildChampionship(parseCSV(champ.value));
+      if (groups.status === "fulfilled") buildGroups(parseCSV(groups.value));
+      if (metrics.status === "fulfilled") buildMetrics(metrics.value);
+      champBuilt = true;
+    }
   } catch (e) {
     setStatus("Error rendering: " + e.message, true);
     return;
@@ -280,4 +284,9 @@ function buildMetrics(m) {
   } else {
     setStatus("Loaded. (No live odds available yet.)");
   }
-})();
+}
+
+// Initial load, then auto-refresh the live data every 5 minutes so the page
+// stays current without a manual reload. Charts on other tabs build once.
+main();
+setInterval(main, 5 * 60 * 1000);
