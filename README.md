@@ -65,8 +65,11 @@ The simulation uses FIFA's official Round of 32 pairings and the 495 third-place
 
 ```
 worldcup2026-market-efficiency/
-├── .github/workflows/collect-odds.yml   # scheduled + dispatch-triggered odds collector
-├── collect_odds.py                      # the script the workflow runs
+├── .github/workflows/
+│   ├── collect-odds.yml                 # dispatch-triggered odds collector
+│   └── fetch-results.yml                # daily match results from football-data.org
+├── collect_odds.py                      # odds collector script
+├── fetch_results.py                     # results fetcher script
 ├── src/
 │   └── groups.py                        # 2026 World Cup group draw
 ├── notebooks/
@@ -76,7 +79,8 @@ worldcup2026-market-efficiency/
 └── data/
     ├── raw/                             # source CSVs (not modified)
     ├── processed/                       # model outputs, plots, metrics
-    └── odds_log.csv                     # live odds history (auto-updated)
+    │   ├── odds_log.csv                     # live odds history (auto-updated)
+    │   └── results_log.csv                  # match results history (auto-updated)
 ```
 
 ## Methodology notes
@@ -89,7 +93,6 @@ worldcup2026-market-efficiency/
 
 ## What's next
 
-- **Daily fixture results pull** from football-data.org once the group stage begins.
 - **Calibration vs. market**: once about 15 matches have been played, compare both sides' Brier and log loss on the same fixtures.
 - **Streamlit dashboard**: live "model vs. market" view for the knockout rounds.
 
