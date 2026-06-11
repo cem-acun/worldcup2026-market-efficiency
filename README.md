@@ -79,8 +79,8 @@ worldcup2026-market-efficiency/
 └── data/
     ├── raw/                             # source CSVs (not modified)
     ├── processed/                       # model outputs, plots, metrics
-    │   ├── odds_log.csv                     # live odds history (auto-updated)
-    │   └── results_log.csv                  # match results history (auto-updated)
+    │   ├── odds_log.csv                 # live odds history (auto-updated)
+    │   └── results_log.csv              # match results history (auto-updated)
 ```
 
 ## Methodology notes
