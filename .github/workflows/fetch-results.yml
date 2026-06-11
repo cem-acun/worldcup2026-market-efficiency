@@ -1,0 +1,31 @@
+name: Fetch results
+
+on:
+  schedule:
+    # Once a day, 03:00 UTC (05:00 Berlin) — well after last match of any day finishes.
+    # External trigger isn't needed here: missing a day just means we catch up the next.
+    - cron: "0 3 * * *"
+  workflow_dispatch:  # allow manual runs
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - run: python fetch_results.py
+        env:
+          FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
+      - name: Commit data
+        run: |
+          git config user.name "results-bot"
+          git config user.email "actions@github.com"
+          git add data/results_log.csv
+          git diff --staged --quiet || git commit -m "results $(date -u +%FT%TZ)"
+          git push
