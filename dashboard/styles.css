@@ -1,0 +1,111 @@
+:root {
+  --bg: #0d1117;
+  --panel: #161b22;
+  --border: #283039;
+  --text: #e6edf3;
+  --muted: #9198a1;
+  --accent: #3fb950;
+  --accent-dim: #238636;
+  --market: #58a6ff;
+  --neg: #f85149;
+  --pos: #3fb950;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+header {
+  padding: 28px 20px 12px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+h1 { font-size: 1.6rem; margin: 0 0 6px; }
+h2 { font-size: 1.25rem; margin: 0 0 8px; }
+.sub { color: var(--muted); margin: 0 0 12px; max-width: 70ch; }
+.status {
+  display: inline-block;
+  font-size: 0.85rem;
+  color: var(--muted);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+.status.err { color: var(--neg); border-color: var(--neg); }
+.note { color: var(--muted); max-width: 75ch; }
+code { background: var(--panel); padding: 1px 5px; border-radius: 4px; font-size: 0.85em; }
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  max-width: 1100px;
+  margin: 8px auto 0;
+  padding: 0 20px;
+  flex-wrap: wrap;
+}
+.tab {
+  background: transparent;
+  border: 1px solid transparent;
+  border-bottom: 2px solid transparent;
+  color: var(--muted);
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border-radius: 6px 6px 0 0;
+}
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--text); border-bottom-color: var(--accent); }
+
+main { max-width: 1100px; margin: 0 auto; padding: 20px; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 14px; margin-top: 16px; }
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.card .teams { font-weight: 600; font-size: 1.05rem; }
+.card .kick { color: var(--muted); font-size: 0.8rem; margin-bottom: 10px; }
+.card .row { display: grid; grid-template-columns: 1fr auto auto auto; gap: 8px; align-items: center; font-size: 0.9rem; padding: 3px 0; }
+.card .row.head { color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: .04em; border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-bottom: 2px; }
+.card .num { font-variant-numeric: tabular-nums; text-align: right; min-width: 52px; }
+.market { color: var(--market); }
+.edge.pos { color: var(--pos); }
+.edge.neg { color: var(--neg); }
+.card .meta { color: var(--muted); font-size: 0.75rem; margin-top: 8px; }
+
+.chart-wrap { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin: 16px 0; }
+.table-wrap, .metrics { margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--border); }
+th { color: var(--muted); font-weight: 600; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+.group-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-top: 16px; }
+.group-card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+.group-card h3 { margin: 0 0 8px; font-size: 1rem; }
+.bar-row { display: grid; grid-template-columns: 1fr 46px; gap: 8px; align-items: center; margin: 5px 0; font-size: 0.88rem; }
+.bar { background: #21262d; border-radius: 4px; height: 16px; overflow: hidden; }
+.bar > span { display: block; height: 100%; background: var(--accent-dim); }
+
+.metrics { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+.metric { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+.metric .v { font-size: 1.6rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.metric .l { color: var(--muted); font-size: 0.82rem; }
+.metric .b { color: var(--muted); font-size: 0.78rem; margin-top: 4px; }
+
+.method { margin-top: 20px; color: var(--muted); font-size: 0.88rem; }
+.method summary { cursor: pointer; color: var(--text); }
+
+footer {
+  max-width: 1100px; margin: 0 auto; padding: 24px 20px 40px;
+  color: var(--muted); font-size: 0.8rem; border-top: 1px solid var(--border);
+}
+.dot { margin: 0 8px; }

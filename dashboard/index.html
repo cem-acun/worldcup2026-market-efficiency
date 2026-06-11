@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>World Cup 2026 — Model vs Market</title>
+  <meta name="description" content="A live model-vs-market efficiency dashboard for the 2026 FIFA World Cup." />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Chart.js (static CDN; the browser fetches it at runtime) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>2026 FIFA World Cup — Model vs Market</h1>
+    <p class="sub">
+      A probabilistic Elo model against the live betting market. This dashboard is read-only:
+      it renders the CSV/JSON the data pipeline keeps fresh in the repository.
+    </p>
+    <div id="status" class="status">Loading data…</div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="live">Model vs Market</button>
+    <button class="tab" data-tab="champ">Championship</button>
+    <button class="tab" data-tab="groups">Group stage</button>
+    <button class="tab" data-tab="model">Model quality</button>
+  </nav>
+
+  <main>
+    <!-- LIVE: model vs market for upcoming matches -->
+    <section id="tab-live" class="panel active">
+      <h2>Upcoming matches — model vs market</h2>
+      <p class="note">
+        Market probabilities are de-vigged (over-round removed) and averaged across all
+        bookmakers in the latest snapshot. Model probabilities are a transparent client-side
+        Elo estimate computed from <code>elo_ratings.json</code> on neutral ground
+        (see "How the model column is computed" below). <strong>Edge</strong> = model − market;
+        a positive edge means the model rates that outcome higher than the market does.
+      </p>
+      <div id="live-matches" class="cards"></div>
+      <details class="method">
+        <summary>How the model column is computed</summary>
+        <p>
+          For each match we take the two teams' Elo ratings (R) and the expected score
+          E<sub>home</sub> = 1 / (1 + 10<sup>(R<sub>away</sub>−R<sub>home</sub>)/400</sup>),
+          with no home advantage (World Cup group matches are effectively neutral).
+          A draw mass p<sub>draw</sub> = 0.30 · (1 − |2·E<sub>home</sub> − 1|) is removed,
+          and the remainder is split between the two sides in proportion to the expected score.
+          This is a deliberately simple, inspectable live estimate; the headline tournament
+          probabilities on the other tabs come from the full 10,000-run Monte Carlo model in
+          the notebooks.
+        </p>
+      </details>
+    </section>
+
+    <!-- CHAMPIONSHIP -->
+    <section id="tab-champ" class="panel">
+      <h2>Championship probabilities</h2>
+      <p class="note">From the full-tournament Monte Carlo simulation (10,000 runs, official 2026 bracket).</p>
+      <div class="chart-wrap"><canvas id="champ-chart"></canvas></div>
+      <div id="champ-table" class="table-wrap"></div>
+    </section>
+
+    <!-- GROUPS -->
+    <section id="tab-groups" class="panel">
+      <h2>Group-stage advancement</h2>
+      <p class="note">Probability each team advances from its group (top-2 plus best third places).</p>
+      <div id="group-grid" class="group-grid"></div>
+    </section>
+
+    <!-- MODEL QUALITY -->
+    <section id="tab-model" class="panel">
+      <h2>Backtest &amp; calibration</h2>
+      <div id="metrics" class="metrics"></div>
+      <p class="note">Backtest over international matches, scored against the Elo rating as it stood the day before each match (no look-ahead leakage).</p>
+    </section>
+  </main>
+
+  <footer>
+    <span id="data-source"></span>
+    <span class="dot">•</span>
+    <span>Read-only dashboard. Odds data © the-odds-api.com, used for non-commercial analysis.</span>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
