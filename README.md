@@ -1,3 +1,5 @@
+**English** | [Deutsch](README.de.md)
+
 # 2026 FIFA World Cup — Market Efficiency Analysis
 
 An end-to-end data science project that pits a probabilistic football model against the live betting market during the 2026 FIFA World Cup. The goal is not to "beat the bookies"; it is to measure how efficient the market is, where it disagrees with a rigorous model, and how well-calibrated each side turns out to be by the end of the tournament.
