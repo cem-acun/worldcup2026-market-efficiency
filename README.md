@@ -71,16 +71,18 @@ worldcup2026-market-efficiency/
 ├── collect_odds.py                      # odds collector script
 ├── fetch_results.py                     # results fetcher script
 ├── src/
-│   └── groups.py                        # 2026 World Cup group draw
+│   ├── groups.py                        # 2026 World Cup group draw
+│   └── bracket.py                       # FIFA Annex C: official R32 pairings + 495 placement combinations
 ├── notebooks/
 │   ├── 01_explore_data.ipynb            # data exploration + Elo training
 │   ├── 02_backtest.ipynb                # leakage-free backtest + calibration
-│   └── 03_monte_carlo.ipynb             # tournament simulation
+│   ├── 03_monte_carlo.ipynb             # tournament simulation (group stage + full bracket)
+│   └── 04_opening_match.ipynb           # opener: model vs. market, timestamped pre-game prediction
 └── data/
     ├── raw/                             # source CSVs (not modified)
     ├── processed/                       # model outputs, plots, metrics
-    │   ├── odds_log.csv                 # live odds history (auto-updated)
-    │   └── results_log.csv              # match results history (auto-updated)
+    ├── odds_log.csv                     # live odds history (auto-updated)
+    └── results_log.csv                  # match results history (auto-updated)
 ```
 
 ## Methodology notes
