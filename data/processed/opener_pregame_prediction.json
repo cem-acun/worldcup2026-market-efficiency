@@ -41,5 +41,19 @@
     "South Africa": -0.12
   },
   "notes": "Model is most aggressive on the favourite (Mexico) and dismissive of the draw due to the large Elo gap. Market prices the draw substantially higher, likely reflecting opening-match tension and defensive strategy patterns that Elo, as a strength-comparison model, does not capture.",
-  "kickoff_berlin": "2026-06-11 21:00 Berlin (CEST, UTC+2)"
+  "kickoff_berlin": "2026-06-11 21:00 Berlin (CEST, UTC+2)",
+  "actual_result": {
+    "home_score": 2,
+    "away_score": 0,
+    "winner": "Mexico",
+    "ht_home": 1,
+    "ht_away": 0,
+    "data_source": "football-data.org (automatically fetched)"
+  },
+  "evaluation": {
+    "model_picked_correct_winner": true,
+    "market_picked_correct_winner": true,
+    "model_brier": 0.0765,
+    "market_brier": 0.1602
+  }
 }
