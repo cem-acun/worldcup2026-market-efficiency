@@ -178,15 +178,7 @@ Then open `01_explore_data.ipynb` and run top-to-bottom. The raw international r
 
 ### AI assistance
 
-This project was developed with the help of an AI assistant ([Claude](https://www.anthropic.com/claude), Anthropic) as a supporting tool. The AI was used for the following tasks:
-
-- Sketching architecture and reasoning through trade-offs (API budget planning, scheduler reliability, evaluation methodology)
-- Generating code scaffolding and boilerplate
-- Code review and debugging
-- Suggesting Elo formulations and helping interpret calibration plots
-- Drafting documentation and comments
-
-All generated content was independently reviewed, understood, and adapted by the author. The conceptual design, methodological decisions, implementation, validation, and the final analysis are my own. Full responsibility for the content of this project rests with the author.
+I used [Claude](https://www.anthropic.com/claude) (Anthropic) and [ChatGPT](https://openai.com/chatgpt) (OpenAI) as thinking partners throughout this project for stress-testing architecture decisions, accelerating boilerplate, catching bugs faster, and surfacing references I might have missed (Elo's original formula, calibration plot conventions). The methodology, the choice of what to build, and every interpretation in this README are mine. In 2026, treating AI as a serious tool is how I work, and saying so explicitly feels more honest than the alternative.
 
 
 ## Author
