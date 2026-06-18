@@ -52,7 +52,7 @@ One match is not evidence about a probabilistic model. But the pipeline that pro
 
 ## How to read this repo
 
-If you're here from a CV link and want the 60-second tour:
+If you're here from my CV link and want the 60-second tour:
 
 1. **Start with this README** — the headline metrics and the opener result above tell you what the model can do and how it compares to the betting market.
 2. **Open `notebooks/03_monte_carlo.ipynb`** for the flagship analysis: how Spain (24.4%) and Argentina (20.5%) emerged as joint title favourites from 10,000 simulated tournaments using FIFA's official bracket.
