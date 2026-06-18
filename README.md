@@ -4,6 +4,8 @@ An end-to-end data science project that pits a probabilistic football model agai
 
 The pipeline runs autonomously: scheduled jobs poll live betting odds throughout the tournament, while the model produces probabilities that can be evaluated against the same matches as they finish.
 
+> 🚧 **Live dashboard coming soon.** A Streamlit web app for picking any two teams to predict, browsing tournament probabilities, and watching the model-vs-market calibration scoreboard grow match by match. The link will appear here once deployed.
+
 > **About this project.** Built by [Cem Acun](https://github.com/cem-acun) as a portfolio project during my Applied Data Science studies at Jade University of Applied Sciences, Germany. I work part-time at a betting shop to support my studies. The everyday exposure to how odds move and where bookmakers misprice their lines is what made me want to build this in the first place.
 
 ## Headline results
@@ -31,6 +33,32 @@ The model's clearest convictions: Spain (98.7%) and Argentina (97.0%) almost cer
 The model has two clear title favourites: **Spain (24.4%)** and **Argentina (20.5%)**, who together account for nearly half of all simulated championships. The chasing pack — France (9.9%), England (6.5%), Colombia (4.8%), Brazil (4.7%) — sits well behind. Brazil's championship probability looks low by reputation but reflects what current Elo data actually says: their group-stage probability of advancing (92%) is strong, but they are placed in the same half of the bracket as Spain. The bracket effect matters: Spain's path to the semi-final passes through softer opposition than Argentina's, which is why despite a smaller Elo gap, Spain leads in title probability.
 
 The simulation uses FIFA's official Round of 32 pairings and the 495 third-place placement combinations defined in Annex C of the tournament regulations.
+
+### First live test: the opener
+
+The 2026 World Cup opened on 11 June with Mexico vs. South Africa in Mexico City. Hours before kickoff, the model and the bookmaker consensus (23 bookmakers, vig-adjusted) both committed to a prediction. The full record is in [`data/processed/opener_pregame_prediction.json`](data/processed/opener_pregame_prediction.json), timestamped and committed to git before the match.
+
+| Outcome      | Model  | Market | Edge      |
+| ------------ | ------ | ------ | --------- |
+| Mexico       | 77.4%  | 67.9%  | **+9.5pp** |
+| Draw         | 11.9%  | 21.3%  | −9.4pp    |
+| South Africa | 10.7%  | 10.8%  | −0.1pp    |
+
+**Actual result: Mexico 2–0 South Africa.** Both sides picked the correct winner. On this single match, the model's Brier score (0.0765) was less than half the market's (0.1602): it was more confident in Mexico and that confidence was rewarded.
+
+One match is not evidence about a probabilistic model. But the pipeline that produced this comparison runs autonomously for every World Cup match through the final, so the same scoreboard will exist for 100+ matches by the time the tournament ends.
+
+## How to read this repo
+
+If you're here from a CV link and want the 60-second tour:
+
+1. **Start with this README** — the headline metrics and the opener result above tell you what the model can do and how it compares to the betting market.
+2. **Open `notebooks/03_monte_carlo.ipynb`** for the flagship analysis: how Spain (24.4%) and Argentina (20.5%) emerged as joint title favourites from 10,000 simulated tournaments using FIFA's official bracket.
+3. **`notebooks/04_opening_match.ipynb`** shows the live workflow in action: pulling odds from 23 bookmakers, comparing them to the model, and locking in a timestamped prediction before kickoff.
+4. **`notebooks/02_backtest.ipynb`** is the credibility check: 3,572 international matches, calibration plots, no look-ahead leakage.
+5. **`notebooks/01_explore_data.ipynb`** is the foundation: how the Elo model was trained on 32,260 matches with tournament-weighted updates.
+
+All notebooks have section headers in English and German.
 
 ## How it works
 
@@ -95,8 +123,14 @@ worldcup2026-market-efficiency/
 
 ## What's next
 
-- **Calibration vs. market**: once about 15 matches have been played, compare both sides' Brier and log loss on the same fixtures.
-- **Streamlit dashboard**: live "model vs. market" view for the knockout rounds.
+- **Calibration vs. market across the tournament**: extend the single-match opener comparison to all 104 matches as they finish, tracking running Brier and log loss for both sides. The first ~15 matches will be the first meaningful sample.
+- **Live Streamlit dashboard** *(in progress)*: an interactive web app with four pages:
+  - **Predict any match**: pick any two of the 326 national teams in the model, set the venue, and get the Elo-based win/draw/loss probabilities instantly, alongside the live bookmaker consensus where odds are available.
+  - **Tournament forecast**: live championship probabilities and group-stage advancement, refreshed from the latest simulation.
+  - **Model performance**: backtest metrics and a calibration scoreboard that grows match by match.
+  - **Methodology**: how the Elo model works, what's behind the numbers, and the data sources.
+
+  Link will appear here once deployed.
 
 ## Reproducing
 
@@ -117,7 +151,7 @@ Then open `01_explore_data.ipynb` and run top-to-bottom. The raw international r
 
 - **Historical international results.** Jurisoo, M. (2026). *International football results from 1872 to 2026.* [github.com/martj42/international_results](https://github.com/martj42/international_results) (CC0). 49,450 matches, the single most important dataset in this project.
 - **Live betting odds.** [the-odds-api.com](https://the-odds-api.com), free tier (500 credits / month), Europe region, 1X2 markets across approximately 13 bookmakers including Pinnacle and Betfair Exchange. All live odds data shown or stored in this repository is sourced from and belongs to the-odds-api.com; it is used here solely for non-commercial academic analysis under their published Terms of Service. No data is redistributed as a standalone product.
-- **Match results during the tournament.** [football-data.org](https://www.football-data.org), free tier (added once the group stage begins).
+- **Match results during the tournament.** [football-data.org](https://www.football-data.org), free tier. Pulled daily by a scheduled GitHub Actions workflow into `data/results_log.csv`.
 - **Group draw and fixtures.** Official FIFA final draw (5 December 2025), cross-checked against ESPN and Yahoo Sports.
 
 ### Python libraries
