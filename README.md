@@ -126,6 +126,7 @@ worldcup2026-market-efficiency/
 - **Reliable scheduling via an external trigger.** GitHub Actions scheduled workflows are silently dropped during top-of-hour load spikes — per GitHub's own documentation, and confirmed empirically: in 24 hours of observation the native cron fired only 2 of an expected 12 times, even after offsetting the schedule to :13 past the hour. The robust fix was to remove the native cron entirely and use an external dedicated scheduler (cron-job.org) that calls GitHub's repository_dispatch API hourly, on the top of the hour. The schedule is concentrated on the 20-hour window where North American kick-off times and European-evening trading activity occur (UTC 00–07 and 12–23, skipping the dead window of UTC 08–11). This stays well within the free-tier API budget (20 calls per day × 21 days in June ≈ 420 of 500 credits) while giving 6–10 odds snapshots per match in the critical six-hour window before kick-off.
   
 - **Goal-difference multiplier in Elo updates.** Following the World Football Elo Ratings formula: 1-goal margins move ratings normally, 2-goal margins move them 1.5x, larger margins scale with `(11 + |gd|) / 8`. This makes decisive wins worth more without letting blowouts dominate.
+- **Data integrity log.** Pipeline incidents and known data gaps are documented in [`data/README.md`](data/README.md). The pipeline is built to fail loudly and recover transparently, not to silently lose data.
 
 ## What's next
 
