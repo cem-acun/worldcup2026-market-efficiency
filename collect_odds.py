@@ -32,9 +32,8 @@ def main():
     new = not os.path.exists(OUTFILE)
     rows = 0
 
-    # gzip.open with 'at' = append text. mtime=0 makes the gzip header deterministic
-    # so identical content produces identical bytes (helps with git diffs).
-    with gzip.open(OUTFILE, "at", newline="", encoding="utf-8", mtime=0) as f:
+    # gzip.open with "at" = append text (gzipped CSV)
+    with gzip.open(OUTFILE, "at", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         if new:
             w.writerow(["captured_at", "match_id", "commence_time",
