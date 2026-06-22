@@ -185,8 +185,10 @@ I used [Claude](https://www.anthropic.com/claude) (Anthropic) and [ChatGPT](http
 
 ## Author
 
-**Cem Acun**
-B.Eng. Applied Data Science (in progress), Jade University of Applied Sciences, Germany
+**Cem Acun**    
+B.Eng. Applied Data Science (in progress)  
+Jade University of Applied Sciences  
+Germany  
 
 [github.com/cem-acun](https://github.com/cem-acun)
 
