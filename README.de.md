@@ -109,6 +109,7 @@ worldcup2026-market-efficiency/
 │   ├── 03_monte_carlo.ipynb             # Turniersimulation (Gruppenphase + volles Bracket)
 │   └── 04_opening_match.ipynb           # Eröffnungsspiel: Modell vs. Markt, zeitgestempelte Vorhersage
 └── data/
+    ├── README.md                        # Schema-Notizen + Datenintegritäts-Log
     ├── raw/                             # Quell-CSVs (nicht verändert)
     ├── processed/                       # Modell-Ausgaben, Plots, Metriken
     ├── odds_log.csv                     # Live-Quoten-Verlauf (automatisch aktualisiert)
@@ -126,8 +127,6 @@ worldcup2026-market-efficiency/
  
 - **Tordifferenz-Multiplikator in Elo-Updates.** Gemäß der Formel der World Football Elo Ratings: 1-Tor-Differenzen bewegen die Bewertung normal, 2-Tor-Differenzen 1,5x, größere Differenzen skalieren mit `(11 + |gd|) / 8`. Dadurch werden klare Siege höher gewichtet, ohne dass Kantersiege dominieren.
 - **Datenintegritäts-Log.** Pipeline-Vorfälle und bekannte Datenlücken sind in [`data/README.md`](data/README.md) dokumentiert. Die Pipeline ist so gebaut, dass sie laut scheitert und transparent wiederherstellt, statt Daten stillschweigend zu verlieren.
-- **Datenintegritäts-Log.** Pipeline-Vorfälle und bekannte Datenlücken sind in [`data/README.md`](data/README.md) dokumentiert. Die Pipeline ist so gebaut, dass sie laut scheitert und transparent wiederherstellt, statt Daten stillschweigend zu verlieren.
-
 ## Was als Nächstes kommt
 
 - **Kalibrierung vs. Markt über das gesamte Turnier**: den Einzelspiel-Vergleich des Eröffnungsspiels auf alle 104 Spiele ausweiten, sobald diese beendet sind, mit laufendem Brier-Score und Log Loss für beide Seiten. Die ersten ~15 Spiele werden die erste aussagekräftige Stichprobe sein.

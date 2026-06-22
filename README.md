@@ -109,6 +109,7 @@ worldcup2026-market-efficiency/
 │   ├── 03_monte_carlo.ipynb             # tournament simulation (group stage + full bracket)
 │   └── 04_opening_match.ipynb           # opener: model vs. market, timestamped pre-game prediction
 └── data/
+    ├── README.md                        # schema notes + data integrity log
     ├── raw/                             # source CSVs (not modified)
     ├── processed/                       # model outputs, plots, metrics
     ├── odds_log.csv                     # live odds history (auto-updated)
