@@ -1,4 +1,4 @@
-import os, csv, datetime, requests
+import os, csv, datetime, gzip, requests
 
 # --- Configuration ---
 API_KEY = os.environ["ODDS_API_KEY"]                  # provided via GitHub secret
@@ -6,18 +6,23 @@ SPORT   = os.environ.get("SPORT_KEY", "soccer_fifa_world_cup")  # verify via /v4
 URL     = f"https://api.the-odds-api.com/v4/sports/{SPORT}/odds/"
 PARAMS  = {"apiKey": API_KEY, "regions": "eu",        # single region = 1 credit per call
            "markets": "h2h", "oddsFormat": "decimal"} # h2h = match result (1X2)
-OUTFILE = "data/odds_log.csv"
+
+# Gzipped CSV: ~95% smaller than plain CSV on this data (lots of repeated
+# bookmaker names + similar odds). Stays well under GitHub's 100 MB file limit
+# even after weeks of hourly snapshots. pandas reads .csv.gz transparently.
+OUTFILE = "data/odds_log.csv.gz"
 
 
 def main():
     ts = datetime.datetime.now(datetime.timezone.utc).isoformat()
+
     try:
         r = requests.get(URL, params=PARAMS, timeout=30)
         r.raise_for_status()
         events = r.json()
     except Exception as e:
         print(f"[{ts}] request failed: {e}")
-        return  # don't crash the workflow; it will retry in 3 hours
+        return  # don't crash the workflow; it will retry on the next tick
 
     # Track remaining free credits (500/month)
     print(f"[{ts}] credits remaining: {r.headers.get('x-requests-remaining')} | "
@@ -26,7 +31,10 @@ def main():
     os.makedirs("data", exist_ok=True)
     new = not os.path.exists(OUTFILE)
     rows = 0
-    with open(OUTFILE, "a", newline="") as f:
+
+    # gzip.open with 'at' = append text. mtime=0 makes the gzip header deterministic
+    # so identical content produces identical bytes (helps with git diffs).
+    with gzip.open(OUTFILE, "at", newline="", encoding="utf-8", mtime=0) as f:
         w = csv.writer(f)
         if new:
             w.writerow(["captured_at", "match_id", "commence_time",
@@ -41,6 +49,7 @@ def main():
                                     ev["home_team"], ev["away_team"],
                                     bk["key"], oc["name"], oc["price"]])
                         rows += 1
+
     print(f"[{ts}] logged {len(events)} matches, {rows} odds rows")
 
 
