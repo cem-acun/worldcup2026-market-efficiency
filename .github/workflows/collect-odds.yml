@@ -28,6 +28,6 @@ jobs:
         run: |
           git config user.name "odds-bot"
           git config user.email "actions@github.com"
-          git add data/odds_log.csv
+          git add data/odds_log.csv.gz
           git diff --staged --quiet || git commit -m "odds $(date -u +%FT%TZ)"
           git push
